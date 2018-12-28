@@ -16,18 +16,13 @@ public class HammerMain {
 	private int BIN_MIN = 0; //minimum length of binary number
 	private int BIN_MAX = 11; //maximum length of binary number
 	private Random random = new Random(); // sets up the random number method
+	private String parityType;
 	
 	private boolean correct=false; //value used to determine correct input
 
-	public void run() {
-				
-		//asks user if they wish to use even or odd parities.
-		System.out.println("Do you want (e)ven or (o)dd parity?");
-		String parityType = stringQuery("e", "o");
-		
-		//get number between 0 and 127 from the user	
-		int number = intQuery();
-			
+	//main passes the number through the hamming code simulator
+	public void hamNumber(int number) {
+									
 		//generates a random number between 0 and 11 for the error
 		int rnd = random.nextInt(BIN_MAX - BIN_MIN +1)+ BIN_MIN;
 			
@@ -36,7 +31,17 @@ public class HammerMain {
 		numberHamming.numberHamming();
 	}
 	
+	//selects the parity type to be used - even or odd
+	public void selectParity()
+	{
+		//asks user if they wish to use even or odd parities.
+		System.out.println("Do you want (e)ven or (o)dd parity?");
+		parityType = stringQuery("e", "o");
+	}
+	
 	//method to obtain a numerical input. Expected responses passed through
+	//However, due to the ASCIICoverter added to the program, this section is not
+	//longer necessary.
 	public int intQuery()
 	{
 		correct = false; //resets the value to confirm correct entry
@@ -46,7 +51,7 @@ public class HammerMain {
 
 		do {
 			query = entry.nextInt();
-			String flush = entry.nextLine(); // flushes out any extraneous characters
+			entry.nextLine(); // flushes out any extraneous characters
 			
 			if (query >= NUM_MIN && query <= NUM_MAX)
 			{
